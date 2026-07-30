@@ -1,0 +1,68 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_itoa.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: yeliew <yeliew@student.42kl.edu.my>        +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/07/30 14:38:50 by yeliew            #+#    #+#             */
+/*   Updated: 2026/07/30 15:37:04 by yeliew           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "libft.h"
+
+static int	count_digits(int n)
+{
+	int	count;
+
+	count = 0;
+	if (n <= 0)
+		count++;
+	while (n)
+	{
+		count++;
+		n /= 10;
+	}
+	return (count);
+}
+
+static char	*zero_case(void)
+{
+	char	*array;
+
+	array = malloc(2);
+	if (!array)
+		return (0);
+	array[0] = '0';
+	array[1] = 0;
+	return (array);
+}
+
+char	*ft_itoa(int n)
+{
+	char	*array;
+	int		len;
+	long	num;
+
+	num = n;
+	len = count_digits(n);
+	array = malloc(len + 1);
+	if (!array)
+		return (0);
+	if (num == 0)
+		return (zero_case());
+	if (num < 0)
+	{
+		array[0] = '-';
+		num = -num;
+	}
+	while (len--)
+	{
+		if (array[len] == '-')
+			break ;
+		array[len] = (num % 10) + '0';
+		num /= 10;
+	}
+	return (array);
+}
