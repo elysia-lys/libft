@@ -50,6 +50,7 @@ char	*ft_itoa(int n)
 	array = malloc(len + 1);
 	if (!array)
 		return (0);
+	array[len] = 0;
 	if (num == 0)
 		return (zero_case());
 	if (num < 0)
