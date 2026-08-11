@@ -1,5 +1,5 @@
 # libft
-*This project has been created as part of the 42 curriculum by <yeliew>.*
+*This project has been created as part of the 42 curriculum by yeliew.*
 
 ## Description
 ### Libft
