@@ -27,18 +27,6 @@ static int	count_digits(int n)
 	return (count);
 }
 
-static char	*zero_case(void)
-{
-	char	*array;
-
-	array = malloc(2);
-	if (!array)
-		return (0);
-	array[0] = '0';
-	array[1] = 0;
-	return (array);
-}
-
 char	*ft_itoa(int n)
 {
 	char	*array;
@@ -51,16 +39,15 @@ char	*ft_itoa(int n)
 	if (!array)
 		return (0);
 	array[len] = 0;
-	if (num == 0)
-		return (zero_case());
 	if (num < 0)
 	{
 		array[0] = '-';
 		num = -num;
 	}
-	while (len--)
+	while (len > 0)
 	{
-		if (array[len] == '-')
+		len--;
+		if (len == 0 && n < 0)
 			break ;
 		array[len] = (num % 10) + '0';
 		num /= 10;
