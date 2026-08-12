@@ -33,7 +33,15 @@ static int	count_words(char const *s, char c)
 	return (count);
 }
 
-static void	fill_array(char **array, char const *s, char c)
+static void	free_array(char **array, size_t index)
+{
+	while (index > 0)
+	{
+		free(array[--index]);
+	}
+}
+
+static int	fill_array(char **array, char const *s, char c)
 {
 	size_t	i;
 	size_t	start;
@@ -48,13 +56,18 @@ static void	fill_array(char **array, char const *s, char c)
 		start = i;
 		while (s[i] && s[i] != c)
 			i++;
-		if (i > start)
+		if (i <= start)
+			continue ;
+		array[index] = ft_substr(s, start, i - start);
+		if (!array[index])
 		{
-			array[index] = ft_substr(s, start, i - start);
-			index++;
+			free_array(array, index);
+			return (0);
 		}
+		index++;
 	}
 	array[index] = 0;
+	return (1);
 }
 
 char	**ft_split(char const *s, char c)
@@ -62,10 +75,16 @@ char	**ft_split(char const *s, char c)
 	char	**array;
 	size_t	words;
 
+	if (!s)
+		return (0);
 	words = count_words(s, c);
 	array = malloc(sizeof(char *) * (words + 1));
 	if (!array)
 		return (0);
-	fill_array(array, s, c);
+	if (!fill_array(array, s, c))
+	{
+		free(array);
+		return (0);
+	}
 	return (array);
 }

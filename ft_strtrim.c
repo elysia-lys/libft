@@ -20,6 +20,8 @@ char	*ft_strtrim(char const *s1, char const *set)
 	size_t	i;
 	char	*array;
 
+	if (!s1 || !set)
+		return (0);
 	start = 0;
 	while (s1[start] && ft_strchr(set, s1[start]))
 		start++;
@@ -32,10 +34,7 @@ char	*ft_strtrim(char const *s1, char const *set)
 		return (0);
 	i = 0;
 	while (i < length)
-	{
-		array[i] = s1[start + i];
-		i++;
-	}
+		array[i++] = s1[start++];
 	array[i] = 0;
 	return (array);
 }
